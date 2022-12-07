@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Schoology2 - Materias</title>
+        <title>Schoology2 - Tareas</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free Website Template" name="keywords">
         <meta content="Free Website Template" name="description">
@@ -21,7 +21,9 @@
     </head>
 
     <body>
-        <div >
+        <div class="wrapper">
+
+        <?php include("includes/sidebar.php"); ?>
 
             <div class="content">
                 <!-- Navbar Start -->
@@ -29,8 +31,7 @@
                 <div class="container p-0">
                     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav m-2">
-                                <a href="materias.php" class="nav-item nav-link active">Ingresar materia</a>
+                            <div class="navbar-nav m-4">
                                 
                             </div>
                         </div>
@@ -47,32 +48,32 @@
                 <!-- Blog List Start -->
                 
                 <div class="container bg-white pt-5">
-                    <div class="row blog-item px-3 pb-4">
+                    <div class="row blog-item px-3 pb-5">
                         <div class="col-md-1">
                         </div>
                         <div class="col-md-7">
-                        <tbody>            
+                        <tbody>
                         <td>
-                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Materia #1</h3>
+                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea #1</h3>
                             <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-key"></i> Codigo: B3-7465321 </small>
+                                <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 01-Jan-2045 (fecha de entrega)</small>
                             </div>
-                            <p> Materia #1 de agosto a diciembre 2022 </p>
-                            <a class="btn btn-link p-0" href=""> Ir a la materia <i class="fa fa-angle-right"></i></a>
+                            <p> hacer la tarea solicitada </p>
+                            <a class="btn btn-link p-0" href=""> Ir a la tarea <i class="fa fa-angle-right"></i></a>
                              </td>
                              <td>
-                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Materia #2</h3>
+                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea #2</h3>
                             <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-key"></i> Codigo: B4-7465321 </small>
+                                <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 01-Jan-2045 (fecha de entrega)</small>
                             </div>
-                            <p> Materia #2 de agosto a diciembre 2022 </p>
-                            <a class="btn btn-link p-0" href=""> Ir a la materia <i class="fa fa-angle-right"></i></a>
-                             </td>
-                        </tbody>
+                            <p> hacer la tarea solicitada </p>
+                            <a class="btn btn-link p-0" href="">Ir a la tarea <i class="fa fa-angle-right"></i></a>
+                             </td>                             
+                        <tbody>
                         </div>
                     </div>
                 </div>
-                
+                </tbody>
                 <!-- Blog List End -->
                 <!-- Subscribe Start -->
                 <!-- Subscribe End -->

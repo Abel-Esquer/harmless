@@ -7,11 +7,11 @@
                     </p>
                     <div class="d-flex justify-content-center mb-5">
                         <a class="btn btn-outline-primary mr-2" href="#">Tareas</a>
-                        <a class="btn btn-outline-primary mr-2" href="#">Mienbros</a>
+                        <a class="btn btn-outline-primary mr-2" href="#">Miembros</a>
                    <!-- <a class="btn btn-outline-primary mr-2" href="#"></a>
                         <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-instagram"></i></a>  -->
                     </div>
-                    <a href="" class="btn btn-primary mt-auto">Atras</a>
+                    <a href="materias.php" class="btn btn-primary mt-auto">Atras</a>
                 </div>
                 <div class="sidebar-icon d-flex flex-column h-100 justify-content-center text-right">
                     <i class="fas fa-2x fa-angle-double-right text-primary"></i>
