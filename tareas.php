@@ -52,40 +52,39 @@
                         <div class="col-md-1">
                         </div>
                         <div class="col-md-7">
-                        <tbody>
-                        <td>
-                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea #1</h3>
-                            <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 01-Jan-2045 (fecha de entrega)</small>
-                            </div>
-                            <p> hacer la tarea solicitada </p>
-                            <a class="btn btn-link p-0" href=""> Ir a la tarea <i class="fa fa-angle-right"></i></a>
-                             </td>
-                             <td>
-                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea #2</h3>
-                            <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 01-Jan-2045 (fecha de entrega)</small>
-                            </div>
-                            <p> hacer la tarea solicitada </p>
-                            <a class="btn btn-link p-0" href="">Ir a la tarea <i class="fa fa-angle-right"></i></a>
-                             </td>                             
-                        <tbody>
+                            <tbody>
+                                <td>
+                                    <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea #1</h3>
+                                    <div class="d-flex mb-3">
+                                        <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 01-Jan-2045 (fecha de entrega)</small>
+                                    </div>
+                                    <p> hacer la tarea solicitada </p>
+                                    <a class="btn btn-link p-0" href=""> Ir a la tarea <i class="fa fa-angle-right"></i></a>
+                                </td>
+                                <td>
+                                    <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea #2</h3>
+                                    <div class="d-flex mb-3">
+                                        <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 01-Jan-2045 (fecha de entrega)</small>
+                                    </div>
+                                    <p> hacer la tarea solicitada </p>
+                                    <a class="btn btn-link p-0" href="">Ir a la tarea <i class="fa fa-angle-right"></i></a>
+                                </td>                             
+                            <tbody>
                         </div>
                     </div>
                 </div>
-                </tbody>
                 <!-- Blog List End -->
                 <!-- Subscribe Start -->
                 <!-- Subscribe End -->
                 <!-- Blog List Start -->
-                <div class="container bg-white pt-5">
-                </div>
                 <!-- Blog List End -->
                 <!-- Footer Start -->
-                 <?php include("includes/footer.php"); ?>
+                <?php include("includes/footer.php"); ?>
                 <!-- Footer End -->
+                </div>
             </div>
         </div>
+        
         
         <!-- Back to Top -->
         <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i></a>
