@@ -32,7 +32,10 @@
                     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav m-4">
-                                
+                                <a href="" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold">Salir de la clase</a>
+                                <!-- si es maestro -->
+                                <a href="" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Crear tarea </a>
+=
                             </div>
                         </div>
                     </nav>

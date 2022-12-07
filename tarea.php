@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Schoology2 - Materias</title>
+        <title>Schoology2 - Alumnos en la clase</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free Website Template" name="keywords">
         <meta content="Free Website Template" name="description">
@@ -29,21 +29,21 @@
                 <div class="container p-0">
                     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                              <a href="" class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Hacer una entrega</a>
+                              <!-- Si es maestro -->
                             <div class="navbar-nav m-2">
-                                <!-- Si es alumno pide codigo si es profe abre formulario de crear materia -->
-                                <a href="" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Ingresar materia </a>
-                                
                             </div>
                         </div>
                     </nav>
                 </div>
 
+                <!--  -->
+                <!--  -->
                 <!-- Navbar End -->
                 
                 <!-- Carousel Start -->
 
                 <!-- Carousel End -->
-                
                 
                 <!-- Blog List Start -->
                 
@@ -53,33 +53,31 @@
                         </div>
                         <div class="col-md-7">
                         <tbody>            
-                        <td>
-                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Materia #1</h3>
-                            <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-key"></i> Codigo: B3-7465321 </small>
-                            </div>
-                            <p> Materia #1 de agosto a diciembre 2022 </p>
-                            <a class="btn btn-link p-0" href=""> Ir a la materia <i class="fa fa-angle-right"></i></a>
-                                <div>
-                                    <!-- Si es profe/admin -->
-                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Editar</a>
-                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Eliminar</a>
+                            <td>
+                                <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea</h3>
+                                <div class="d-flex mb-3">
                                 </div>
-                             </td>
-                        <td>
-                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Materia #1</h3>
-                            <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-key"></i> Codigo: B3-7465321 </small>
-                            </div>
-                            <p> Materia #1 de agosto a diciembre 2022 </p>
-                            <a class="btn btn-link p-0" href=""> Ir a la materia <i class="fa fa-angle-right"></i></a>
                                 <div>
-                                    <!-- Si es profe/admin -->
-                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Editar</a>
-                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Eliminar</a>
+                                    <p>Realizar las intruciones de la tarea</p>
                                 </div>
-                             </td>
+                            </td>
                         </tbody>
+
+                        <tbody>            
+                            <td>
+                                <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Entregas</h3>
+                                <div class="d-flex mb-3">
+                                </div>
+                                <div>
+                                    <h5 href="" class="mt-md-4 px-md-3 mb-2 py-2">Titulo de la entrega</h5>
+                                    <small class="mr-2 text-muted"> Realizada el:  </small>
+                                    <p href="" class="mt-md-4 px-md-3 mb-2 py-2">Contenido de la entrega</p>
+                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Editar entrega</a>
+                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-times"></i> Eliminar entrega</a>
+                                </div>
+                            </td>
+                        </tbody>
+                        
                         </div>
                     </div>
                 </div>

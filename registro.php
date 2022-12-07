@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Schoology2 - Login</title>
+        <title>Schoology2 - Registro</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free Website Template" name="keywords">
         <meta content="Free Website Template" name="description">
@@ -57,6 +57,16 @@
       <tr>
         <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="password2">Contraseña:*</label></td>
         <td><input type="password" name="password2"></td>
+      </tr>
+      <tr>
+        <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold"> ¿Que eres? </td>
+        <td>
+          <select name = "rol">
+          <option value="profesor">Profesor</option>
+          <option value="alumno">Alumno</option>  
+          <!-- Si es admin -->
+          <option value="admin">Admin</option>
+        </td>
       </tr>
       <tr>
         <td></td>
