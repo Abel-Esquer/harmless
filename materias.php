@@ -43,8 +43,12 @@ if(!isset($_SESSION)) {
                                   // Este documento es solo para administradores, evaluamos el rol del usuario para determinar "si no es admin", en ese caso lo pateamos cordialmente
                                   if($_SESSION['userRole'] == "admin"){
                                     echo '<a href="registro.php" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Crear usuario </a>';
+                                    echo '<a href=".php" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Editar usuario </a>';
                                   }
                                 ?>
+                            </div>
+                            <div class="navbar-nav m-2">
+                                <a href="" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Cerrar sesion </a>
                             </div>
                         </div>
                     </nav>
