@@ -56,7 +56,10 @@
                         <td>
                             <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Materia #1</h3>
                             <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-key"></i> Codigo: B3-7465321 </small>
+                                <small class="mr-2 text-muted"><i class="fa fa-key"></i>Codigo: B3-7465321 </small>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <small class="mr-2 text-muted"><i class="fa fa-user"></i>Profesor: </small>
                             </div>
                             <p> Materia #1 de agosto a diciembre 2022 </p>
                             <a class="btn btn-link p-0" href=""> Ir a la materia <i class="fa fa-angle-right"></i></a>
