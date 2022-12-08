@@ -7,21 +7,20 @@ include("includes/utils.php");
 if(isset($_POST['userAddSent'])) {
   // Vamos a validar que no existan cajas vacias
   foreach($_POST as $calzon => $caca) {
-    if($caca == '' && $calzon != "telephone" ) $error[] = "The $calzon field is required";
+    if($caca == '') $error[] = "The $calzon field is required";
   }
 
   // Validamos que los passwords coincidan
-  if($_POST['password'] != $_POST['password2']) $error[] = "The password do not match";
+  if($_POST['password'] != $_POST['password2']) $error[] = "La contraseña no coincide";
 
   // Si estamos libres de errores, continuamos a insertar el registro en la BD
   if(!isset($error)) {
     // Preparamos el query de insercion
-    $queryInsertUser = sprintf("INSERT INTO usuarios (nombre, apellidos, email, password, telefono, rol) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+    $queryInsertUser = sprintf("INSERT INTO usuario (nombre, apellido, correo, contraseña, rol) VALUES ('%s', '%s', '%s', '%s', '%s')",
         mysqli_real_escape_string($conn_localhost, trim($_POST['name'])),
         mysqli_real_escape_string($conn_localhost, trim($_POST['lastname'])),
         mysqli_real_escape_string($conn_localhost, trim($_POST['email'])),
         mysqli_real_escape_string($conn_localhost, trim($_POST['password'])),
-        mysqli_real_escape_string($conn_localhost, trim($_POST['telephone'])),
         mysqli_real_escape_string($conn_localhost, trim($_POST['rol']))
     );
 
@@ -29,7 +28,7 @@ if(isset($_POST['userAddSent'])) {
     mysqli_query($conn_localhost, $queryInsertUser) or trigger_error("El query de inserción de usuarios falló");
 
     // Redireccionamos al usuario al Panel de Control
-    header("Location: cpanel.php?insertUser=true");
+    header("Location: materias.php?insertUser=true");
   } 
 }
 ?>
@@ -99,17 +98,17 @@ if(isset($_POST['userAddSent'])) {
           <select name = "rol">
             <option value="profesor">Profesor</option>
             <option value="alumno">Alumno</option>  
-            <!-- Si es admin -->}
-            <<?php
-            // Inicializamos la sesion o la retomamos
-            if(!isset($_SESSION)) {
-              session_start();
-              // Protegemos el documento para que solamente los usuarios que HAN INICIADO sesión puedan visualizarlo
-              if(!isset($_SESSION['userId'])) header('Location: login.php?auth=false');
+            <!-- Si es admin -->
+            <?php
+              // Inicializamos la sesion o la retomamos
+              if(!isset($_SESSION)) {
+                session_start();
+                print_r($_SESSION);
+              }
               // Este documento es solo para administradores, evaluamos el rol del usuario para determinar "si no es admin", en ese caso lo pateamos cordialmente
-              if($_SESSION['userRole'] != "admin") header("Location: cpanel.php?forbidden=true");
-              <option value="admin">Admin</option>
-            }
+              if($_SESSION['userRole'] == "admin"){
+                echo '<option value="admin">Administrador</option>';
+              }
             ?>
         </td>
       </tr>

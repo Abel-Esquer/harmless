@@ -2,6 +2,7 @@
   // Inicializamos la sesion o la retomamos
   if(!isset($_SESSION)) {
     session_start();
+    print_r($_SESSION);
   }
 
   // Incluimos las utilidades
