@@ -1,3 +1,39 @@
+<?php
+// Incluimos la conexión a la base de datos
+include("connections/conn_localhost.php");
+include("includes/utils.php");
+
+// Lo primero que vamos a validar es si el forumulario ha sido enviado o no
+if(isset($_POST['userAddSent'])) {
+  // Vamos a validar que no existan cajas vacias
+  foreach($_POST as $calzon => $caca) {
+    if($caca == '' && $calzon != "telephone" ) $error[] = "The $calzon field is required";
+  }
+
+  // Validamos que los passwords coincidan
+  if($_POST['password'] != $_POST['password2']) $error[] = "The password do not match";
+
+  // Si estamos libres de errores, continuamos a insertar el registro en la BD
+  if(!isset($error)) {
+    // Preparamos el query de insercion
+    $queryInsertUser = sprintf("INSERT INTO usuarios (nombre, apellidos, email, password, telefono, rol) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+        mysqli_real_escape_string($conn_localhost, trim($_POST['name'])),
+        mysqli_real_escape_string($conn_localhost, trim($_POST['lastname'])),
+        mysqli_real_escape_string($conn_localhost, trim($_POST['email'])),
+        mysqli_real_escape_string($conn_localhost, trim($_POST['password'])),
+        mysqli_real_escape_string($conn_localhost, trim($_POST['telephone'])),
+        mysqli_real_escape_string($conn_localhost, trim($_POST['rol']))
+    );
+
+    // Ejecutamos el query
+    mysqli_query($conn_localhost, $queryInsertUser) or trigger_error("El query de inserción de usuarios falló");
+
+    // Redireccionamos al usuario al Panel de Control
+    header("Location: cpanel.php?insertUser=true");
+  } 
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,7 +63,7 @@
     <div class="col-md-5">
   </div>
 <div class = "container py-5 px-5 bg-primary" id="content" class="txt_content">
-  <h2 class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" >Nuevo usuario</h2>
+  <h2 class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold">Nuevo usuario</h2>
   <p class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" >Use el formulario para registrarte</p>
 
   <?php if(isset($error)) printMsg($error, "error"); ?>
@@ -40,7 +76,6 @@
       <tr>
         <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="name">Nombre:* </label></td>
         <td><input type="text" name="name" value="<?php if(isset($_POST['name'])) echo $_POST['name']?>" ></td>
-        
       </tr>
       <tr>
         <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="lastname">Apellidos:*</label></td>
@@ -55,17 +90,27 @@
         <td><input type="password" name="password"></td>
       </tr>
       <tr>
-        <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="password2">Contraseña:*</label></td>
+        <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="password2">Confirmar Contraseña:*</label></td>
         <td><input type="password" name="password2"></td>
       </tr>
       <tr>
         <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold"> ¿Que eres? </td>
         <td>
           <select name = "rol">
-          <option value="profesor">Profesor</option>
-          <option value="alumno">Alumno</option>  
-          <!-- Si es admin -->
-          <option value="admin">Admin</option>
+            <option value="profesor">Profesor</option>
+            <option value="alumno">Alumno</option>  
+            <!-- Si es admin -->}
+            <<?php
+            // Inicializamos la sesion o la retomamos
+            if(!isset($_SESSION)) {
+              session_start();
+              // Protegemos el documento para que solamente los usuarios que HAN INICIADO sesión puedan visualizarlo
+              if(!isset($_SESSION['userId'])) header('Location: login.php?auth=false');
+              // Este documento es solo para administradores, evaluamos el rol del usuario para determinar "si no es admin", en ese caso lo pateamos cordialmente
+              if($_SESSION['userRole'] != "admin") header("Location: cpanel.php?forbidden=true");
+              <option value="admin">Admin</option>
+            }
+            ?>
         </td>
       </tr>
       <tr>

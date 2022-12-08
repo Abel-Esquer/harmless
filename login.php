@@ -1,3 +1,50 @@
+<?php
+  // Inicializamos la sesion o la retomamos
+  if(!isset($_SESSION)) {
+    session_start();
+  }
+
+  // Incluimos las utilidades
+  include("connections/conn_localhost.php");
+  include("includes/utils.php");
+
+  // Evaluamos si el formulario ha sido enviado
+  if(isset($_POST["login_sent"])) {
+    // Validamos si las cajas están vacias
+    foreach($_POST as $calzon => $caca) {
+      if($caca == "") $error[] = "The $calzon field is required";
+    }
+
+    // Si estamos libres de errores procedemos con la verificación de los datos del usuario
+    if(!isset($error)) {
+      // Armamos el query para verificar email y password en la BD
+      $queryLogin = sprintf("SELECT idUsuario, nombre, apellido, correo, rol FROM usuario WHERE correo = '%s' AND contraseña = '%s'",
+          mysqli_real_escape_string($conn_localhost, trim($_POST['email'])),
+          mysqli_real_escape_string($conn_localhost, trim($_POST['password']))
+      );
+
+      // Ejecutamos el query
+      $resQueryLogin = mysqli_query($conn_localhost, $queryLogin) or trigger_error("Login query failed");
+
+      // Determinamos si el login es valido (email y password coincidentes)
+      //Contamos el recordset (el resultado esperado para un login valido es 1)
+      if(mysqli_num_rows($resQueryLogin)) {
+        // Hacemos un fetch del recordset
+        $userData = mysqli_fetch_assoc($resQueryLogin);
+
+        // Defninimos variables de sesion en $_SESSION
+        $_SESSION['userId'] = $userData['idUsuario'];
+        $_SESSION['userFullname'] = $userData['nombre']." ".$userData["apellido"];
+        $_SESSION['userEmail'] = $userData['correo'];
+        $_SESSION['userRole'] = $userData['rol'];
+
+        // Redireccionamos al usuario al Panel de Control
+        header("Location: materias.php");
+      }
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,9 +77,12 @@
   <h2 class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" >Iniciar sesion</h2>
   <p class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" >Use el formulario para iniciar sesion</p>
 
-  <?php if(isset($error)) printMsg($error, "error"); ?>
-  <?php if(isset($_GET['auth'])) printMsg("You must login first", "announce"); ?>
-  <?php if(isset($_GET['loggedOff'])) printMsg("Your session has been closed.", "exito"); ?>
+  <div>
+    <?php if(isset($error)) printMsg($error); ?>
+    <?php if(isset($_GET['auth'])) printMsg("Deberas iniciar sesion"); ?>
+    <?php if(isset($_GET['loggedOff'])) printMsg("Has cerrado sesion"); ?>
+  </div>
+  
 
   <form action="login.php" method="post">
     <table cellpadding ="4">
