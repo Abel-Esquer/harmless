@@ -32,6 +32,7 @@
                             <div class="navbar-nav m-2">
                                 <!-- Si es alumno pide codigo si es profe abre formulario de crear materia -->
                                 <a href="" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Ingresar materia </a>
+                                <a href="registro.php" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Crear usuario </a>
                                 
                             </div>
                         </div>
