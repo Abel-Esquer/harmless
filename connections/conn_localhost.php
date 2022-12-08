@@ -1,9 +1,9 @@
 <?php
 // Definimos variables con los datos necesarios para la conexion
 $servidor = "localhost";
-$baseDatos = "";
+$baseDatos = "harmless";
 $usuarioBD = "root";
-$passwordBD = "";
+$passwordBD = "root";
 
 // Creamos la conexión
 $conn_localhost = mysqli_connect($servidor, $usuarioBD, $passwordBD) 
