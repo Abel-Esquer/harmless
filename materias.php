@@ -1,8 +1,33 @@
 <?php
-if(!isset($_SESSION)) {
-  session_start();
-  print_r($_SESSION);
-}
+if(!isset($_SESSION)){
+    session_start();
+    //Protegemos el documento para que solamente los usuarios que HAN INICIADO sesion puedan visualizarlo
+    if(!isset($_SESSION['userId'])) header('Location: login.php?auth=false');
+
+    if($_SESSION['userRole'] == "admin"){
+        $queryMaterias = sprintf("SELECT m.nombre as materia, m.codigo, m.descripcion, concat(p.nombre,' ',p.apellido) as profesor
+        FROM materia m INNER JOIN usuario p ON m.idProfesor = p.idUsuario");}
+
+    if($_SESSION['userRole'] == "profesor"){
+        $queryMaterias = sprintf("SELECT m.nombre as materia, m.codigo, m.descripcion, concat(p.nombre,' ',p.apellido) as profesor
+            FROM materia m INNER JOIN usuario p ON m.idProfesor = p.idUsuario WHERE p.idUsuario = %d", 
+            mysqli_real_escape_string($conn_localhost, trim($_GET['materia'])),
+            mysqli_real_escape_string($conn_localhost, trim($_GET['codigo'])),
+            mysqli_real_escape_string($conn_localhost, trim($_GET['descripcion'])),
+            mysqli_real_escape_string($conn_localhost, trim($_GET['profesor'])),
+            mysqli_real_escape_string($conn_localhost, trim($_SESSION['userId']))
+        );}
+
+    // Ejecutamos el query
+    $resQueryMaterias = mysqli_query($conn_localhost, $queryLogin) or trigger_error("Materia query failed");
+
+    // Hacemos un fetch del recordset
+    $materiasData = mysqli_fetch_assoc($resQueryMaterias);
+
+//Incluimos la conexion a la base de datos
+  include("connections/conn_localhost.php");
+  include("includes/utils.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +68,7 @@ if(!isset($_SESSION)) {
                                   // Este documento es solo para administradores, evaluamos el rol del usuario para determinar "si no es admin", en ese caso lo pateamos cordialmente
                                   if($_SESSION['userRole'] == "admin"){
                                     echo '<a href="registro.php" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Crear usuario </a>';
-                                    echo '<a href=".php" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Editar usuario </a>';
+                                    echo '<a href="ListadoAlumnos.php" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Administrar usuarios </a>';
                                   }
                                 ?>
                             </div>
@@ -68,37 +93,29 @@ if(!isset($_SESSION)) {
                         <div class="col-md-1">
                         </div>
                         <div class="col-md-7">
-                        <tbody>            
-                        <td>
-                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Materia #1</h3>
-                            <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-key"></i>Codigo: B3-7465321 </small>
-                            </div>
-                            <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-user"></i>Profesor: </small>
-                            </div>
-                            <p> Materia #1 de agosto a diciembre 2022 </p>
-                            <a class="btn btn-link p-0" href=""> Ir a la materia <i class="fa fa-angle-right"></i></a>
-                                <div>
-                                    <!-- Si es profe/admin -->
-                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Editar</a>
-                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Eliminar</a>
-                                </div>
-                             </td>
-                        <td>
-                            <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Materia #1</h3>
-                            <div class="d-flex mb-3">
-                                <small class="mr-2 text-muted"><i class="fa fa-key"></i> Codigo: B3-7465321 </small>
-                            </div>
-                            <p> Materia #1 de agosto a diciembre 2022 </p>
-                            <a class="btn btn-link p-0" href=""> Ir a la materia <i class="fa fa-angle-right"></i></a>
-                                <div>
-                                    <!-- Si es profe/admin -->
-                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Editar</a>
-                                    <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Eliminar</a>
-                                </div>
-                             </td>
-                        </tbody>
+                            <tbody>
+                                <?php
+                                    foreach($_SESSION as $calzon => $caca) {
+                                      if($caca == "") $error[] = "The $calzon field is required";
+                                    }
+                                ?>
+                                <!-- <td>
+                                    <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Materia #1</h3>
+                                    <div class="d-flex mb-3">
+                                        <small class="mr-2 text-muted"><i class="fa fa-key"></i>Codigo: B3-7465321 </small>
+                                    </div>
+                                    <div class="d-flex mb-3">
+                                        <small class="mr-2 text-muted"><i class="fa fa-user"></i>Profesor: </small>
+                                    </div>
+                                    <p> Materia #1 de agosto a diciembre 2022 </p>
+                                    <a class="btn btn-link p-0" href="Entregas.php"> Ir a la materia <i class="fa fa-angle-right"></i></a>
+                                    <div>
+                                        Si es profe/admin
+                                        <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Editar</a>
+                                        <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Eliminar</a>
+                                    </div>
+                                </td> -->
+                            </tbody>
                         </div>
                     </div>
                 </div>
