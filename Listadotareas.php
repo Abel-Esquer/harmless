@@ -1,3 +1,21 @@
+<?php
+if(!isset($_SESSION)){
+    session_start();
+    //Protegemos el documento para que solamente los usuarios que HAN INICIADO sesion puedan visualizarlo
+    if(!isset($_SESSION['userId'])) header('Location: login.php?auth=false');
+}
+
+//Incluimos la conexion a la base de datos
+include("connections/conn_localhost.php");
+include("includes/utils.php");
+
+$queryGetTareas = sprintf("SELECT * FROM tarea WHERE idMateria = {$_GET['materiaId']};");
+
+$resQueryGetTareas = mysqli_query($conn_localhost, $queryGetTareas) or trigger_error("Materia query failed");
+
+$tareasData = mysqli_fetch_assoc($resQueryGetTareas);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,10 +50,17 @@
                     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav m-4">
-                                <a href="" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold">Salir de la clase</a>
-                                <!-- si es maestro -->
-                                <a href="" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Crear tarea </a>
-=
+                                <?php
+                                    if ($_SESSION['userRole'] == "profesor" || $_SESSION['userRole'] == "admin") {
+                                ?>        
+                                        <a href="CrearTarea.php?idMateria=<?php echo $_GET['materiaId'];?>" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Crear tarea </a>
+                                <?php        
+                                    }else{
+                                ?>        
+                                        <a href="" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold">Salir de la clase</a>
+                                <?php        
+                                    }
+                                ?>
                             </div>
                         </div>
                     </nav>
@@ -55,23 +80,22 @@
                         <div class="col-md-1">
                         </div>
                         <div class="col-md-7">
+                            <?php if(isset($_GET['insertTarea'])) printMsg("La tarea se agrego correctamente"); ?>
                             <tbody>
-                                <td>
-                                    <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea #1</h3>
-                                    <div class="d-flex mb-3">
-                                        <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 01-Jan-2045 (fecha de entrega)</small>
-                                    </div>
-                                    <p> hacer la tarea solicitada </p>
-                                    <a class="btn btn-link p-0" href=""> Ir a la tarea <i class="fa fa-angle-right"></i></a>
-                                </td>
-                                <td>
-                                    <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea #2</h3>
-                                    <div class="d-flex mb-3">
-                                        <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> 01-Jan-2045 (fecha de entrega)</small>
-                                    </div>
-                                    <p> hacer la tarea solicitada </p>
-                                    <a class="btn btn-link p-0" href="">Ir a la tarea <i class="fa fa-angle-right"></i></a>
-                                </td>                             
+                                <?php
+                                do{
+                                ?>
+                                    <td>
+                                        <h3 class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Tarea: <?php echo $tareasData['titulo']; ?></h3>
+                                        <div class="d-flex mb-3">
+                                            <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"></i> <?php echo $tareasData['fechaEntrega']; ?> (fecha de entrega)</small>
+                                        </div>
+                                        <p><?php echo $tareasData['descripcion']; ?></p>
+                                        <a class="btn btn-link p-0" href="Entregas.php?usuarioId=<?php echo $_SESSION['userId']?>&tareaId=<?php echo $tareasData['idTarea']?>&usuarioRol=<?php echo $_SESSION['userRole']?>"> Ir a la tarea <i class="fa fa-angle-right"></i></a>
+                                    </td>
+                                <?php    
+                                } while($tareasData = mysqli_fetch_assoc($resQueryGetTareas));    
+                                ?>
                             <tbody>
                         </div>
                     </div>

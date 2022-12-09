@@ -7,14 +7,30 @@ include("includes/utils.php");
 if(isset($_POST['userAddSent'])) {
   // Vamos a validar que no existan cajas vacias
   foreach($_POST as $calzon => $caca) {
-    if($caca == '') $error[] = "The $calzon field is required";
+    if($caca == '') $error[] = "Deberas de llenar el campo de: $calzon";
   }
 
   // Validamos que los passwords coincidan
   if($_POST['password'] != $_POST['password2']) $error[] = "La contraseña no coincide";
 
   // Si estamos libres de errores, continuamos a insertar el registro en la BD
-  if(!isset($error)) {
+  if(isset($miembroData['idUsuario'])){
+    if(!isset($error)) {
+      // Preparamos el query de insercion
+      $queryUpdateUser = sprintf("UPDATE usuario SET nombre = '%s', apellido = '%s', correo = '%s', contraseña = '%s', rol = '%s' WHERE idUsuario = {$_GET['idUsuario']};",
+          mysqli_real_escape_string($conn_localhost, trim($_POST['name'])),
+          mysqli_real_escape_string($conn_localhost, trim($_POST['lastname'])),
+          mysqli_real_escape_string($conn_localhost, trim($_POST['email'])),
+          mysqli_real_escape_string($conn_localhost, trim($_POST['password'])),
+          mysqli_real_escape_string($conn_localhost, trim($_POST['rol']))
+      );
+
+      // Ejecutamos el query
+      mysqli_query($conn_localhost, $queryUpdatetUser) or trigger_error("El query de inserción de usuarios falló");
+
+      header("Location: materias.php?updateUser=true");
+    }
+  }else if(!isset($error)) {
     // Preparamos el query de insercion
     $queryInsertUser = sprintf("INSERT INTO usuario (nombre, apellido, correo, contraseña, rol) VALUES ('%s', '%s', '%s', '%s', '%s')",
         mysqli_real_escape_string($conn_localhost, trim($_POST['name'])),
@@ -27,10 +43,13 @@ if(isset($_POST['userAddSent'])) {
     // Ejecutamos el query
     mysqli_query($conn_localhost, $queryInsertUser) or trigger_error("El query de inserción de usuarios falló");
 
-    // Redireccionamos al usuario al Panel de Control
     header("Location: materias.php?insertUser=true");
-  } 
+  }
 }
+
+  // $queryGetMiembro = sprintf("SELECT idUsuario, nombre, apellido, correo, contraseña, rol FROM usuario WHERE idUsuario = {$_GET['idUsuario']};");
+  // $resQueryGetMiembro = mysqli_query($conn_localhost, $queryGetMiembro) or trigger_error("Miembro query failed");
+  // $miembroData = mysqli_fetch_assoc($resQueryGetMiembro);
 ?>
 
 <!DOCTYPE html>
@@ -74,15 +93,15 @@ if(isset($_POST['userAddSent'])) {
     <table cellpadding ="2">
       <tr>
         <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="name">Nombre:* </label></td>
-        <td><input type="text" name="name" value="<?php if(isset($_POST['name'])) echo $_POST['name']?>" ></td>
+        <td><input type="text" name="name" value="<?php if(isset($_GET['idUsuario'])){echo $miembroData['nombre'];}else if(isset($_POST['name'])){ echo $_POST['name'];}?>" ></td>
       </tr>
       <tr>
         <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="lastname">Apellidos:*</label></td>
-        <td><input type="text" name="lastname" value="<?php if(isset($_POST['lastname'])) echo $_POST['lastname']?>"></td>
+        <td><input type="text" name="lastname" value="<?php if(isset($_GET['idUsuario'])){echo $miembroData['apellido'];}else if(isset($_POST['lastname'])){ echo $_POST['lastname'];}?>"></td>
       </tr>
       <tr>
         <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="email">Email:* </label></td>
-        <td><input type="text" name="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']?>"></td>
+        <td><input type="text" name="email" value="<?php if(isset($_GET['idUsuario'])){echo $miembroData['correo'];}else if(isset($_POST['email'])){ echo $_POST['email'];}?>"></td>
       </tr>
       <tr>
         <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="password">Contraseña:*</label></td>
@@ -96,6 +115,7 @@ if(isset($_POST['userAddSent'])) {
         <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold"> ¿Que eres? </td>
         <td>
           <select name = "rol">
+            <option value="">Selecciona una opcion</option>
             <option value="profesor">Profesor</option>
             <option value="alumno">Alumno</option>  
             <!-- Si es admin -->
@@ -114,10 +134,16 @@ if(isset($_POST['userAddSent'])) {
       </tr>
       <tr>
         <td></td>
-        <td><input type="submit" value="Registrate" name="userAddSent"></td>
+        
+        <?php
+          if(isset($_SESSION['userRole']) && $_SESSION['userRole'] == "admin"){
+            echo '<td><input type="submit" value="Registrar" name="userAddSent"></td>';
+          }else{
+            echo '<td><input type="submit" value="Registrate" name="userAddSent"></td>';
+          }
+        ?>
       </tr>
     </table>
-
   </form>
 </div> 
     <div class="container bg-white pt-1 pb-5">
