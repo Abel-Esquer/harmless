@@ -32,7 +32,22 @@ if(isset($_POST['userDeleteSent'])) {
     if($resQueryUserDelete) {
       header("Location: materias.php?deletedUser=true");
     }
+}
 
+if(isset($_POST['userMateriaDeleteSent'])) {
+
+    // Preparamos la consulta para guardar el registro en la BD
+    $queryDelete = sprintf("DELETE FROM alumno_clase WHERE idMiembros = %d",
+      mysqli_real_escape_string($conn_localhost, trim($_POST['userId']))
+    );
+
+    // Ejecutamos el query
+    $resQueryUserDelete = mysqli_query($conn_localhost, $queryDelete) or trigger_error("El query de eliminar usuario falló");
+
+    // Evaluamos el resultado de la ejecución del query
+    if($resQueryUserDelete) {
+      header("Location: materias.php?deletedUserMateria=true");
+    }
 }
 ?>
 
@@ -67,13 +82,7 @@ if(isset($_POST['userDeleteSent'])) {
                 <div class="container p-0">
                     <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <?php
-                            if($_SESSION['userRole'] == "profesor"){
-                                echo '
-                                <a href="" class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Agregar Alumno</a>'
-                                ;  
-                            }
-                            ?>
+                            
                             <div class="navbar-nav m-2">
                             </div>
                         </div>
@@ -121,7 +130,10 @@ if(isset($_POST['userDeleteSent'])) {
                                             <?php
                                             if($_SESSION['userRole'] == "profesor"){
                                             ?>
-                                                <a href="" class="mt-md-4 px-md-3 mb-2 py-2"><i class="fa fa-times"></i> Expulsar</a>
+                                                <form action="ListadoUsuarios.php" method="post">
+                                                    <input type="hidden" name="userId" value="<?php echo $miembrosData['idUsuario']; ?>">
+                                                    <input type="submit" value="Expulsar" name="userMateriaDeleteSent">    
+                                                </form> 
                                             <?php    
                                             }
                                             ?>

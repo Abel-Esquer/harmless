@@ -129,7 +129,7 @@ if(isset($_POST['materiaDeleteSent'])) {
                             <?php if(isset($_GET['insertUser'])) printMsg("Usuario creado exitosamente"); ?>
                             <?php if(isset($_GET['deletedUser'])) printMsg("Usuario eliminado exitosamente"); ?>
                             <?php if(isset($_GET['updateUser'])) printMsg("Usuario actualizado exitosamente"); ?>
-                            <?php if(isset($_GET['deletedMateria'])) printMsg("Materia eliminada exitosamente"); ?>
+                            <?php if(isset($_GET['insertEntrega'])) printMsg("Entrega exitosa"); ?>
                             <tbody>
                                 <?php
                                 do{
@@ -149,7 +149,7 @@ if(isset($_POST['materiaDeleteSent'])) {
                                             </p>
                                             <div>
                                                 <?php
-                                                if($_SESSION['userRole'] == "admin" || $_SESSION['userRole'] == "profesor"){
+                                                if($_SESSION['userRole'] == "admin"){
                                                 ?>  
                                                     <form action="materias.php" method="post">
                                                         <input type="hidden" name="materiaId" value="<?php echo $materiasData['idMateria']; ?>">

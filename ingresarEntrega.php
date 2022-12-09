@@ -1,3 +1,32 @@
+<?php
+// Incluimos la conexión a la base de datos
+include("connections/conn_localhost.php");
+include("includes/utils.php");
+
+// Lo primero que vamos a validar es si el forumulario ha sido enviado o no
+if(isset($_POST['tareaAddInsert'])) {
+  // Vamos a validar que no existan cajas vacias
+  foreach($_POST as $calzon => $caca) {
+    if($caca == '') $error[] = "Deberas de llenar el campo de: $calzon";
+  }
+
+  if(!isset($error)) {
+    // Preparamos el query de insercion
+    $queryInsertEntrega= sprintf("INSERT INTO entrega (titulo, contenido, idAlumno, idMateria) VALUES ('%s', '%s', %d, %d)",
+        mysqli_real_escape_string($conn_localhost, trim($_POST['titulo'])),
+        mysqli_real_escape_string($conn_localhost, trim($_POST['contenido'])),
+        mysqli_real_escape_string($conn_localhost, trim($_GET['idAlumno'])),
+        mysqli_real_escape_string($conn_localhost, trim($_GET['idMateria']))
+    );
+
+    // Ejecutamos el query
+    mysqli_query($conn_localhost, $queryInsertUser) or trigger_error("El query de inserción de materia falló");
+
+    header("Location: materias.php?insertEntrega=true");
+  }
+}  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,7 +57,7 @@
         <h2 class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold">Hacer entrega</h2>
         <p class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" >Use el formulario para crear una entrega</p>
 
-        <form action="registro.php" method="post">          
+        <form action="ingresarEntrega.php" method="post">          
           <table cellpadding ="3">
             <tr>
               <td class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold" ><label for="titulo">Titulo:* </label></td>
@@ -39,7 +68,7 @@
               <td><textarea name="contenido" value="<?php if(isset($_POST['contenido'])) echo $_POST['contenido']?>"></textarea></td>
             </tr>
               <td></td>
-              <td><input type="submit" value="Entregar" name=""></td>
+              <td><input type="submit" value="Entregar" name="tareaAddInsert"></td>
             </tr>
           </table>
         </form>

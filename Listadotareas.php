@@ -55,10 +55,6 @@ $tareasData = mysqli_fetch_assoc($resQueryGetTareas);
                                 ?>        
                                         <a href="CrearTarea.php?idMateria=<?php echo $_GET['materiaId'];?>" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold"> Crear tarea </a>
                                 <?php        
-                                    }else{
-                                ?>        
-                                        <a href="" class="mt-md-1 px-md-3 mb-2 py-2 bg-white font-weight-bold">Salir de la clase</a>
-                                <?php        
                                     }
                                 ?>
                             </div>

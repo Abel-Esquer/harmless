@@ -60,7 +60,7 @@ $entregasData = mysqli_fetch_assoc($resQueryGetEntregas);
                             <?php
                                 if($_SESSION['userRole'] == 'alumno'){
                             ?>
-                                    <a href="ingresarEntrega.php" class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Hacer una entrega</a>
+                                    <a href="ingresarEntrega.php?idTarea=<?php echo $_GET['tareaId'];?>&idAlumno=<?php echo $_GET['usuarioId'];?>" class="mt-md-4 px-md-3 mb-2 py-2 bg-white font-weight-bold">Hacer una entrega</a>
                             <?php
                                 }
                             ?>
@@ -110,13 +110,7 @@ $entregasData = mysqli_fetch_assoc($resQueryGetEntregas);
                                             <h5 href="" class="mt-md-4 px-md-3 mb-2 py-2"><?php echo $entregasData['eTitulo']; ?></h5>
                                             <small class="mr-2 text-muted"> Realizada por: <?php echo $entregasData['alumno']; ?> el dia <?php echo $entregasData['fechaSubido']; ?></small>
                                             <p href="" class="mt-md-4 px-md-3 mb-2 py-2"><?php echo $entregasData['contenido']; ?></p>
-                                            <?php
-                                                if($_SESSION['userRole'] == "alumno"){
-                                                   echo '<a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-wrench"></i> Editar entrega</a>';
-                                                }
-                                            ?>
                                             
-                                            <a href="" class="mt-md-4 px-md-3 mb-2 py-2" ><i class="fa fa-times"></i> Eliminar entrega</a>
                                         </div>
                                     </td>
                                 </tbody>

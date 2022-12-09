@@ -9,20 +9,22 @@ if(!isset($_SESSION)){
 include("connections/conn_localhost.php");
 include("includes/utils.php");
 
-// $queryGetMateria = sprintf("SELECT * FROM materia WHERE idMateria = {$_GET['idMateria']};");
-// $resQueryGetMateria = mysqli_query($conn_localhost, $queryGetMateria) or trigger_error("Materia query failed");
-// $materiaData = mysqli_fetch_assoc($resQueryGetMateria);
+
 
 
 
 if($_SESSION['userRole'] == "admin"){
+  $queryGetMateria = sprintf("SELECT * FROM materia WHERE idMateria = {$_GET['idMateria']};");
+  $resQueryGetMateria = mysqli_query($conn_localhost, $queryGetMateria) or trigger_error("Materia query failed");
+  $materiaData = mysqli_fetch_assoc($resQueryGetMateria);
+  
   $queryGetMiembros = sprintf("SELECT idUsuario, concat(nombre,' ',apellido) as profesor FROM usuario WHERE rol = 'profesor';");
   $resQueryGetMiembros = mysqli_query($conn_localhost, $queryGetMiembros) or trigger_error("Profesor query failed");
   $miembrosData = mysqli_fetch_assoc($resQueryGetMiembros);
 
   if(isset($_POST['materiaAddSent'])) {
 
-    $queryGetCodigo = sprintf("SELECT * FROM materia WHERE codigo = '0004'",
+    $queryGetCodigo = sprintf("SELECT * FROM materia WHERE codigo = '%s'",
       mysqli_real_escape_string($conn_localhost, trim($_POST['codigo'])));
     $resQueryGetCodigo = mysqli_query($conn_localhost, $queryGetCodigo) or trigger_error("Materia query failed");
     $codigoData = mysqli_fetch_assoc($resQueryGetCodigo);
